@@ -8,14 +8,14 @@
 # Import library
 from PyPDF2 import PdfFileReader
 from PyPDF2 import PdfMerger
-
+from DownloadPDF import number_pdf
 ###################################
 # Get the list of pdf files
 ##################################
 PDF_list = []
 pdf_name = "pdf1.pdf"
 i = 0
-while i < 19:
+while i < number_pdf:
     i = i+1
     temp = list(pdf_name)
     temp[3] = str(i)
@@ -81,7 +81,7 @@ def convert_pdf2img(input_file: str, pages: Tuple = None):
     return output_files
 if __name__ == "__main__":
     input_file = 'result.pdf'
-    convert_pdf2img(input_file)
+    output_file = convert_pdf2img(input_file)
 
 
 
@@ -103,7 +103,8 @@ myconfig = r"--psm 6--oem 3"
 # Get all of the text information in string
 i = 0
 temp = ""
-while i < 19:
+print(len(output_file))
+while i < len(output_file):
     i = i+1
     text = pytesseract.image_to_string(PIL.Image.open("result_page"+str(i)+".png"), config=myconfig)
     temp += text
