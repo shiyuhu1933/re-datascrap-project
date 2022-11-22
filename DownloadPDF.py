@@ -31,22 +31,23 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
 # Find all links present on a webpage
 links = soup.find_all("a")
-i = 0
+number_pdf = 0
 # Check the pdf links in all the links and if present download file
 # Requests URL and get response object
 for link in links:
     if ".pdf" in link.get('href'):
-        i += 1
-        print("Downloading....", i)
+        number_pdf += 1
+        print("Downloading....", number_pdf)
         link = "https://www.nycourts.gov" + link['href']
         # Get response for each link
         response = requests.get(link)
         # Download PDF
-        pdf = open("pdf" + str(i) + ".pdf", "wb")
+        pdf = open("pdf" + str(number_pdf) + ".pdf", "wb")
         pdf.write(response.content)
         pdf.close()
-        print("PDF file", i, "downloaded")
+        print("PDF file", number_pdf, "downloaded")
 print("All PDF files downloaded")
+print(number_pdf)
 
 
 
